@@ -6,7 +6,9 @@ Tools yang berfungsi untuk melakukan crawling ribuan data komunitas di Indonesia
 - MySQL installed on PC
 
 # Installation
-- pip install -r requirements.txt
+```
+pip install -r requirements.txt
+```
 
 # Configuration
 - Create database on MySQL with name komunitas or anything
@@ -22,7 +24,13 @@ connection = pymysql.connect(host='localhost',
 ```
 
 # How to use
-- python komunitas.py
+```
+python komunitas.py
+```
+
+## Note
+This tool uses a caching system. For the first time it might take a little longer because the caching system is making data and depends on your internet connection.
+However, the second search will be much faster
 
 # Screenshot
 ### Example result in json format
@@ -34,7 +42,4 @@ connection = pymysql.connect(host='localhost',
 ### Crawling Process
 ![alt text](https://i.imgur.com/wXVtC6W.png "Crawling Process")
 
-## Note
-This tool uses a caching system. For the first time it might take a little longer because the caching system is making data and depends on your internet connection.
 
-However, the second search will be much faster
