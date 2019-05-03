@@ -1,9 +1,13 @@
-# komunitas-crawler
+# Komunitas Crawler
 Tools yang berfungsi untuk melakukan crawling ribuan data komunitas di Indonesia secara serempak dalam jumlah besar serta bisa melakukan pengkategorian berdasarkan kategori komunitas yang ingin dicari. Kemudian data yang berhasil didapat bisa di sync ke dalam database MySQL. Hasil uji tes berhasil mendapatkan 6000++ data komunitas lebih.
 
 # Requirements
 - Python3 installed on PC
 - MySQL installed on PC
+
+# Supported OS
+- Windows
+- Linux
 
 # Installation
 ```
@@ -37,7 +41,7 @@ However, the second search will be much faster
 ![alt text](https://i.imgur.com/zF6bVWt.png "Example Result in json")
 
 ### Homescreen Tools
-![alt text](https://i.imgur.com/hqkXiEa.png "Homescreen Tools")
+![alt text](https://i.imgur.com/AWUMs3H.png "Homescreen Tools")
 
 ### Crawling Process
 ![alt text](https://i.imgur.com/wXVtC6W.png "Crawling Process")
