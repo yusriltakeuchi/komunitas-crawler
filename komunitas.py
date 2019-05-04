@@ -1,12 +1,14 @@
+# encoding=utf8  
 from bs4 import BeautifulSoup
 import requests
 import requests_cache
 import time
 import json
-import sys
+import sys  
 import subprocess as proses
 import platform
 from json2mysql import Json2Mysql
+
 
 #-------------------------------------------
 # KOMUNITAS CRAWLER
@@ -22,21 +24,21 @@ class Komunitas():
 
     #Color script
     HEADER = '\033[95m'
-    OKBLUE = '\033[96m'
+    BLUE = '\033[96m'
     GREEN = '\033[32m'
     WARNING = '\033[93m'
     FAIL = '\033[31m'
 
     def clearScreen(self):
         system_os = platform.system()
-        if 'Linux' in system_os:
-            proses.call('clear', shell=True)
-        elif "Windows" in system_os:
+        if "Windows" in system_os:
             proses.call('cls', shell=True)
+        else:
+            proses.call('clear', shell=True)
 
     def headers(self):
         self.clearScreen()
-        print("              {}╭╮╭━╮╱╱╱╱╱╱╱╱╱╱╱╱╭╮".format(self.WARNING))
+        print("              {0}╭╮╭━╮╱╱╱╱╱╱╱╱╱╱╱╱╭╮".format(self.WARNING))
         print("              ┃┃┃╭╯╱╱╱╱╱╱╱╱╱╱╱╭╯╰╮")
         print("              ┃╰╯╯╭━━┳╮╭┳╮╭┳━╮┣╮╭╋━━┳━━╮")
         print("              ┃╭╮┃┃╭╮┃╰╯┃┃┃┃╭╮╋┫┃┃╭╮┃━━┫")
@@ -44,15 +46,17 @@ class Komunitas():
         print("              ╰╯╰━┻━━┻┻┻┻━━┻╯╰┻┻━┻╯╰┻━━╯")
 
         print("")
-        print("         {}[{}━{}]    {}Crawling Data Komunitas  {}[{}━{}]".format(self.WARNING, self.OKBLUE, self.WARNING, self.OKBLUE, self.WARNING, self.OKBLUE, self.WARNING))
-        print("         {}[{}━{}]  {}made by: {}Yusril Rapsanjani {}[{}━{}]".format(self.WARNING, self.OKBLUE, self.WARNING, self.OKBLUE, self.HEADER, self.WARNING, self.OKBLUE, self.WARNING))
-        print("         {}[{}━{}]         {}Version: {}1.0        {}[{}━{}]".format(self.WARNING, self.OKBLUE, self.WARNING, self.OKBLUE, self.HEADER, self.WARNING, self.OKBLUE, self.WARNING))
-        print("         {}[{}━{}]       {}Codename: {}yurani      {}[{}━{}]".format(self.WARNING, self.OKBLUE, self.WARNING, self.OKBLUE, self.HEADER, self.WARNING, self.OKBLUE, self.WARNING))
-        print("         {}[{}━{}]     {}Sites: {}www.yurani.me    {}[{}━{}]".format(self.WARNING, self.OKBLUE, self.WARNING, self.OKBLUE, self.HEADER, self.WARNING, self.OKBLUE, self.WARNING))
-        print("         {}[{}━{}]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[{}━{}]".format(self.WARNING, self.OKBLUE, self.WARNING, self.OKBLUE, self.WARNING))
+        print("         {0}[{1}━{0}]{1}    {1}Crawling Data Komunitas  {0}[{1}━{0}]{1}".format(self.WARNING, self.BLUE))
+        print("         {0}[{1}━{0}]{1}  {1}made by: {2}Yusril Rapsanjani {0}[{1}━{0}]{1}".format(self.WARNING, self.BLUE, self.HEADER))
+        print("         {0}[{1}━{0}]{1}         {1}Version: {2}1.0        {0}[{1}━{0}]{1}".format(self.WARNING, self.BLUE, self.HEADER))
+        print("         {0}[{1}━{0}]{1}       {1}Codename: {2}yurani      {0}[{1}━{0}]{1}".format(self.WARNING, self.BLUE, self.HEADER))
+        print("         {0}[{1}━{0}]{1}     {1}Sites: {2}www.yurani.me    {0}[{1}━{0}]{1}".format(self.WARNING, self.BLUE, self.HEADER))
+        print("         {0}[{1}━{0}]{1}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{0}[{1}━{0}]".format(self.WARNING, self.BLUE))
         print("")
 
     def __init__(self):
+        requests_cache.install_cache('community')
+
         category_list = self.getCategoryList()
         category_list.append("exit")
         self.komunitas_gained = 0
@@ -64,7 +68,7 @@ class Komunitas():
 
         #Looping category
         for x in range(0, len(category_list)):
-            print("        {}{}.){} {}".format(self.OKBLUE, str(x+1), self.WARNING,category_list[x]))
+            print("        {}{}.){} {}".format(self.BLUE, str(x+1), self.WARNING,category_list[x]))
         
         print("        {}------------------------------------".format(self.WARNING))
         select = input("        [?] Kategori mana yang ingin kamu crawling? [1-{}]: ".format(str(len(category_list))))
@@ -82,7 +86,6 @@ class Komunitas():
             sys.exit()
 
     def getCategoryList(self):
-        requests_cache.install_cache("komunitas")
         r = requests.get(self.url)
 
         #Create a scraping object
@@ -179,7 +182,6 @@ class Komunitas():
 
     def travelData(self, url):
         #Get Web Element
-        requests_cache.install_cache("komunitas")
         r = requests.get(url)
 
         #Creating a scraping object
@@ -187,7 +189,7 @@ class Komunitas():
 
         #Installing attributes
         title = soup.find("span", class_="single-listing-title").get_text()
-        print("        [*] Mendapatkan data komunitas {}{}{}".format(self.OKBLUE, title, self.WARNING))
+        print("        [*] Mendapatkan data komunitas {}{}{}".format(self.BLUE, title, self.WARNING))
 
         #Get Category list
         main_div = soup.find("div", class_="listing-content col-md-8")
@@ -314,7 +316,6 @@ class Komunitas():
         content_link = self.ParsingLink(category)
 
         #Get Maximum Page
-        requests_cache.install_cache("komunitas")
         r = requests.get(content_link)
         soup = BeautifulSoup(r.content, 'html.parser')
 
@@ -326,7 +327,6 @@ class Komunitas():
         for x in range(1, int(max_page)+1):
             try:
                 #Get Web Element
-                requests_cache.install_cache("komunitas")
                 r = requests.get("{}/page/{}/".format(content_link, x))
 
                 #Create a scraping object
@@ -334,7 +334,7 @@ class Komunitas():
                 raw_link = soup.findAll("h4", class_="entry-title")
 
                 #Traveling to komunitas data
-                print("\n        [*] Mendapat {}{}{} komunitas dalam page {}{}/{}{}...".format(self.OKBLUE, str(len(raw_link)), self.WARNING, self.OKBLUE, str(x), str(max_page), self.WARNING))
+                print("\n        [*] Mendapat {}{}{} komunitas dalam page {}{}/{}{}...".format(self.BLUE, str(len(raw_link)), self.WARNING, self.BLUE, str(x), str(max_page), self.WARNING))
                 
                 print("        [*] Memulai penjelajahan data komunitas...")
                 
